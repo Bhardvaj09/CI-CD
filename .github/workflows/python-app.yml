@@ -1,0 +1,29 @@
+name : First CICD pipeline
+on:
+    push:
+        branches:
+            - main
+    pull_request:
+        branches:
+            - main
+jobs:
+    test:
+        runs-on: macos-latest
+        
+        steps:
+            - name : checkout repository
+              uses : actions/checkout@v3
+            
+            - name : setup python environment
+              uses : actions/setup-python@v4
+              with:
+                python-version : '3.11'
+
+            - name  : install dependencies
+              run   : pip install -r requirements.txt
+                      python -m install --upgrade pip
+            
+            - name  : run tests
+              run   : pytest
+
+            
